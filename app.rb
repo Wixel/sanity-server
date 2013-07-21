@@ -33,6 +33,8 @@ class App < Sinatra::Base
         resp[:host] = host
         
       rescue Errno::ECONNREFUSED
+      rescue Errno::ECONNABORTED
+      rescue Errno::ECONNRESET  
         resp[:status] = 500
         resp[:host] = host
       end
