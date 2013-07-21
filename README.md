@@ -1,4 +1,4 @@
-sanity-server
+Sanity Check Server
 =============
 
-The server code for the Sanity Gem
+Highly available server to perform URI pings.
