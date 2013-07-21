@@ -8,6 +8,8 @@ Highly available ping servers that are reachable via a URL.
 1. [http://sanity-1.herokuapp.com](http://sanity-1.herokuapp.com)
 2. [http://sanity-2.herokuapp.com](http://sanity-2.herokuapp.com)
 3. [http://sanity-3.herokuapp.com](http://sanity-3.herokuapp.com)
+4. [http://sanity-4.herokuapp.com](http://sanity-4.herokuapp.com)
+5. [http://sanity-5.herokuapp.com](http://sanity-5.herokuapp.com)
 
 #### Example:
 
