@@ -19,4 +19,12 @@ Produces:
 {"status":200,"response":0.549021817,"host":"http://wixelhq.com"}
 ```
 
+#### Multiple concurrent checks
 
+curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '["google.com", "facebook.com"]' http://sanity-1.herokuapp.com/check
+
+Produces:
+
+```json
+[{"status":200,"response":0.716687,"host":"http://google.com"},{"status":200,"response":0.872883,"host":"http://facebook.com"}]
+```
