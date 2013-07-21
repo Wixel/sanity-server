@@ -1,4 +1,4 @@
-Sanity Check Server
+Sanity Check Ping Server
 =============
 
 Highly available ping servers that are reachable via a URL.
