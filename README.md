@@ -1,7 +1,7 @@
 Sanity Check Server
 =============
 
-Highly available ping servers that are reachable via URI. 
+Highly available ping servers that are reachable via a URI. 
 
 #### Current installations:
 
