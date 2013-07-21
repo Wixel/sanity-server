@@ -1,7 +1,7 @@
 Sanity Check Server
 =============
 
-Highly available ping servers that are reachable via a URI. 
+Highly available ping servers that are reachable via a URL.
 
 #### Current installations:
 
@@ -21,7 +21,7 @@ Produces:
 
 #### Multiple concurrent checks
 
-curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '["google.com", "facebook.com"]' http://sanity-1.herokuapp.com/check
+`curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '["google.com", "facebook.com"]' http://sanity-1.herokuapp.com/check`
 
 Produces:
 
