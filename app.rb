@@ -5,7 +5,7 @@ require "json"
 class App < Sinatra::Base
 
   configure do
-    set :version, "0.5"
+    set :version       , "0.5"
     set :root          , File.dirname(__FILE__)
     set :public_folder , File.dirname(__FILE__) + '/public'
     set :app_file      , __FILE__
