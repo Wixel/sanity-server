@@ -6,6 +6,12 @@ class App < Sinatra::Base
 
   configure do
     set :version, "0.5"
+    set :root          , File.dirname(__FILE__)
+    set :public_folder , File.dirname(__FILE__) + '/public'
+    set :app_file      , __FILE__
+    set :dump_errors   , true
+    set :logging       , true
+    set :raise_errors  , true    
   end
   
   helpers do
