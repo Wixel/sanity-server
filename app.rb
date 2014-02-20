@@ -9,10 +9,19 @@ class App < Sinatra::Base
     set :version     , "0.5"
     set :root        , File.dirname(__FILE__)
     set :app_file    , __FILE__
+  end
+  
+  configure :development do
     set :dump_errors , true
     set :logging     , true
     set :raise_errors, true    
   end
+  
+  configure :production do
+    set :dump_errors , false
+    set :logging     , true
+    set :raise_errors, false   
+  end  
   
   helpers do
     
@@ -24,19 +33,18 @@ class App < Sinatra::Base
           host = "http://#{host}"
         end
 
-        s = Time.now
-        response = Net::HTTP.get(URI.parse(host))
-        e = Time.now - s
+        start_time = Time.now
+        response   = Net::HTTP.get(URI.parse(host))
+        end_time   = Time.now - start_time
         
-        resp[:status] = 200
-        resp[:response] = e
-        resp[:host] = host
+        resp[:status]   = 200
+        resp[:response] = end_time
+        resp[:host]     = host
         
-      rescue Errno::ECONNREFUSED
-      rescue Errno::ECONNABORTED
-      rescue Errno::ECONNRESET  
-        resp[:status] = 500
-        resp[:host] = host
+      rescue        
+        resp[:status]   = 500
+        resp[:host]     = host
+        resp[:response] = 0
       end
       
       return resp
@@ -53,7 +61,7 @@ class App < Sinatra::Base
   
   # Let's just display a splash page
   get '/' do
-    "Sanity Server Instance"
+    "Sanity Server Instance v#{settings.version}"
   end
   
   # Perform the single ping check
@@ -65,18 +73,24 @@ class App < Sinatra::Base
   # Perform the concurrent ping checks
   post '/check' do
     content_type :json
-    urls = JSON.parse(request.body.read)
+    
     resp = []
+          
+    begin
+      urls = JSON.parse(request.body.read)
 
-    if(urls) 
-      urls.each do |d|
-        if !d.include? "://"
-          d = "http://#{d}"
-        end        
-        if(valid_uri?(d))
-          resp.push(ping(d))
+      if(urls) 
+        urls.each do |d|
+          if !d.include? "://"
+            d = "http://#{d}"
+          end        
+          if(valid_uri?(d))
+            resp.push(ping(d))
+          end
         end
-      end
+      end      
+    rescue
+      logger.info "Invalid JSON body requested"
     end
   
     resp.to_json
