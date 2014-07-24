@@ -47,7 +47,7 @@ class App < Sinatra::Base
         resp[:response] = 0
       end
       
-      return resp
+      resp
     end
     
     # Simple method to determine if a uri is valid
@@ -55,7 +55,7 @@ class App < Sinatra::Base
       uri = URI.parse(uri)
       uri.kind_of?(URI::HTTP)
     rescue URI::InvalidURIError
-      return false
+      false
     end
   end
   
