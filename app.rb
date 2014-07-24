@@ -84,9 +84,8 @@ class App < Sinatra::Base
           if !d.include? "://"
             d = "http://#{d}"
           end        
-          if(valid_uri?(d))
-            resp.push(ping(d))
-          end
+          
+          resp.push(ping(d)) if valid_uri?(d)
         end
       end      
     rescue
