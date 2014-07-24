@@ -1,7 +1,7 @@
 Sanity Check Ping Server
 =============
 
-Highly available ping servers that are reachable via a URL.
+Highly available ping servers that are reachable via a simple URL requests.
 
 #### Current installations:
 
