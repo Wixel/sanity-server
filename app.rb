@@ -10,7 +10,7 @@ GlobalState[:startup]     = Time.now
 class App < Sinatra::Base
 
   configure do
-    set :version , "0.5"
+    set :version , "0.7"
     set :root    , File.dirname(__FILE__)
     set :app_file, __FILE__
   end
@@ -71,7 +71,7 @@ class App < Sinatra::Base
   
   # Let's just display a splash page
   get '/' do
-    "Sanity Server Instance v#{settings.version}"
+    {:name => "Sanity Server Instance v#{settings.version}"}.to_json
   end
   
   # Return the global hit counter
