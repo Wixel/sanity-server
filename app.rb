@@ -3,12 +3,16 @@ require "net/http"
 require "json"
 require "uri"
 
+GlobalState = {}
+GlobalState[:hit_counter] = 0
+GlobalState[:startup]     = Time.now
+
 class App < Sinatra::Base
 
   configure do
-    set :version     , "0.5"
-    set :root        , File.dirname(__FILE__)
-    set :app_file    , __FILE__
+    set :version , "0.5"
+    set :root    , File.dirname(__FILE__)
+    set :app_file, __FILE__
   end
   
   configure :development do
@@ -47,6 +51,8 @@ class App < Sinatra::Base
         resp[:response] = 0
       end
       
+      GlobalState[:hit_counter] += 1
+      
       return resp
     end
     
@@ -59,21 +65,27 @@ class App < Sinatra::Base
     end
   end
   
+  before do
+    content_type :json
+  end
+  
   # Let's just display a splash page
   get '/' do
     "Sanity Server Instance v#{settings.version}"
   end
   
+  # Return the global hit counter
+  get '/status' do
+    {:hits => GlobalState[:hit_counter], :since => GlobalState[:startup]}.to_json
+  end  
+  
   # Perform the single ping check
   get '/check/:url' do
-    content_type :json
     ping(params[:url]).to_json
   end
   
   # Perform the concurrent ping checks
   post '/check' do
-    content_type :json
-    
     resp = []
           
     begin

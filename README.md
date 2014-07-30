@@ -31,3 +31,10 @@ Produces:
 ```json
 [{"status":200,"response":0.716687,"host":"http://google.com"},{"status":200,"response":0.872883,"host":"http://facebook.com"}]
 ```
+
+#### Check the global status
+
+This is an unreliable method as the number will be reset when the server is restarted. It's meant to give you a general idea of the server usage.
+
+*curl http://sanity-1.herokuapp.com/status*
+
