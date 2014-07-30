@@ -71,7 +71,10 @@ class App < Sinatra::Base
   
   # Let's just display a splash page
   get '/' do
-    {:name => "Sanity Server Instance v#{settings.version}"}.to_json
+    {
+      :name => "Sanity Server Instance v#{settings.version}", 
+      :link => "http://github.com/Wixel/sanity-server"
+    }.to_json
   end
   
   # Return the global hit counter
