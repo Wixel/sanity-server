@@ -53,7 +53,7 @@ class App < Sinatra::Base
       
       GlobalState[:hit_counter] += 1
       
-      return resp
+      resp
     end
     
     # Simple method to determine if a uri is valid
@@ -61,7 +61,7 @@ class App < Sinatra::Base
       uri = URI.parse(uri)
       uri.kind_of?(URI::HTTP)
     rescue URI::InvalidURIError
-      return false
+      false
     end
   end
   
@@ -96,9 +96,8 @@ class App < Sinatra::Base
           if !d.include? "://"
             d = "http://#{d}"
           end        
-          if(valid_uri?(d))
-            resp.push(ping(d))
-          end
+          
+          resp.push(ping(d)) if valid_uri?(d)
         end
       end      
     rescue
