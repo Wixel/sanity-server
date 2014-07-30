@@ -38,3 +38,9 @@ This is an unreliable method as the number will be reset when the server is rest
 
 *curl http://sanity-1.herokuapp.com/status*
 
+```json
+{
+  "hits": 1,
+  "since": "2014-07-30 13:10:46 +0200"
+}
+```
