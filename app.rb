@@ -2,6 +2,7 @@ require "sinatra/base"
 require "net/http"
 require "json"
 require "uri"
+require "pp"
 
 GlobalState = {}
 GlobalState[:hit_counter] = 0
@@ -32,23 +33,32 @@ class App < Sinatra::Base
     # Simple ping functionality
     def ping(host)
       resp = {}
+      
       begin
         if !host.include? "://"
           host = "http://#{host}"
         end
 
         start_time = Time.now
-        response   = Net::HTTP.get(URI.parse(host))
-        end_time   = Time.now - start_time
+        
+        response = Net::HTTP.get_response(URI.parse(host))
+        
+        if !response.is_a?(Net::HTTPSuccess)
+          raise Exception, "Request Failed"
+        end
+        
+        end_time = Time.now - start_time
         
         resp[:status]   = 200
         resp[:response] = end_time
         resp[:host]     = host
+        resp[:size]     = response.body.length
         
-      rescue        
+      rescue => e
         resp[:status]   = 500
         resp[:host]     = host
         resp[:response] = 0
+        resp[:message]  = e
       end
       
       GlobalState[:hit_counter] += 1
